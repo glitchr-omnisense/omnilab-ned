@@ -1,0 +1,49 @@
+{
+    "name": "omnilab/ned",
+    "type": "library",
+    "description": "Omnilab NED: an object of the NASA/IPAC Extragalactic Database - a galaxy, a quasar, a cluster, a radio source - by any of its names: its preferred name, type, J2000 position with its uncertainty, redshift with its uncertainty and quality, galactic coordinates, and how many references, photometric points, redshift-independent distances, images and spectra NED holds for it; the objects of a cone on the sky - through NED's ObjectLookup and TAP services, no key needed.",
+    "keywords": [
+        "science",
+        "astronomy",
+        "ned",
+        "nasa",
+        "ipac",
+        "galaxies",
+        "quasars",
+        "redshift",
+        "tap",
+        "adql",
+        "omnilab"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Marco Meyer",
+            "email": "marco.meyer@glitchr.io"
+        }
+    ],
+    "require": {
+        "php": ">=8.2",
+        "glitchr/omnilab": "^1.0@dev",
+        "symfony/http-client": "^6.4|^7.0|^8.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Omnilab\\Ned\\": ""
+        },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Omnilab\\Ned\\Tests\\": "Tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
