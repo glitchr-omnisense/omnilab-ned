@@ -1,6 +1,6 @@
 # omnilab/ned
 
-NED, the NASA/IPAC Extragalactic Database, for [omniscient/omnilab](https://github.com/glitchr-studio/omnilab):
+NED, the NASA/IPAC Extragalactic Database, for [omnisense/omnilab](https://github.com/glitchr-omnisense/omnilab):
 an object beyond our galaxy - a galaxy, a quasar, a cluster, a radio source... - by any of its
 names: its preferred name, type, J2000 position with its uncertainty, redshift with its
 uncertainty, quality and reference, its galactic coordinates, and how many references,
