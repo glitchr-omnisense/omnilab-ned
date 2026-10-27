@@ -1,5 +1,11 @@
 # omnilab/ned
 
+NED, the NASA/IPAC Extragalactic Database, through its ObjectLookup and TAP services
+(`https://ned.ipac.caltech.edu/`), for [omnisense/omnilab](https://github.com/glitchr-omnisense/omnilab):
+galaxies, quasars, clusters and the other objects beyond our galaxy by any of their names - type,
+position, redshift and its quality, the number of distances, photometry and spectra NED holds -,
+as entities; outside the contract, the objects of a cone on the sky. No key.
+
 ## Installation
 
 ```sh
@@ -18,6 +24,48 @@ $ned = (new NedSourceFactory($httpClient))->create([
 With the Symfony bundle, the factory is registered as `ned` when the bundle knows it; otherwise
 register `NedSourceFactory` as a service (it is autoconfigured as a `SourceFactoryInterface`).
 Give the HTTP client a timeout of 60 s or more for cones.
+
+## Credentials
+
+None: NED's ObjectLookup and TAP services take no key and no account.
+
+## Options
+
+The factory's options, with the defaults it applies (`NedSourceFactory`):
+
+| Option | Type | Default | Required | Effect |
+|---|---|---|---|---|
+| `mailto` | `?string` | null | no | a contact address, sent in the User-Agent |
+| `user_agent` | `?string` | null | no | the whole User-Agent, in place of the one made from `mailto` |
+| `throttle` | `float` | `0` | no | seconds left between two calls: NED publishes no rate (its TAP answers in 1 to 40 s) |
+| `base_uri` | `string` | `https://ned.ipac.caltech.edu/` | no | NED's site (`srs/ObjectLookup` and `tap/sync` are joined to it), or a mirror |
+
+## Capabilities
+
+`capabilities()` answers `entity`; an operation it does not answer throws `NotSupportedException` before any call.
+
+| Capability | Supported | |
+|---|---|---|
+| `entity` | yes | any name NED resolves (`M31`, `3C 273`, `Abell 1689`), `ned:`, a `simbad` identifier, its `byname` page: ObjectLookup, then the directory's row by a cone of an arcsecond; another base refused before any call |
+| `search` | no | ObjectLookup resolves one name, and the directory cannot be searched by name in time |
+| `series` | no |  |
+| `products` | no |  |
+| `occurrences` | no |  |
+| `datasets` | no |  |
+| `jobs` | no |  |
+| `open` | no |  |
+| `structure` | no |  |
+| `cross_references` | no | none: NED gives no other base's identifier here |
+| `forecast` | no |  |
+| `historical` | no |  |
+| `area` | no | the core's places are on the Earth: a cone on the sky is `cone()`'s |
+| `station` | no |  |
+| `cloud_cover` | no |  |
+
+Outside the contract, on `Omnilab\Ned\NedSource`: `cone(float $ra, float $dec, float $radius, int
+$limit = 50, ?string $type = null): Page` - the objects of NED's directory within a radius (degrees,
+10 at most) of a point of the sky (J2000 degrees), the nearest first, 1,000 at most, one page,
+optionally of one NED type code (`G`, `QSO`, `GClstr`...).
 
 ## Which API
 
@@ -82,6 +130,60 @@ omnilab/simbad gives an object its SIMBAD names (`simbad:M 87`); NED resolves th
 `collect('simbad', 'M87', 1, ['ned'])` merges SIMBAD's record with NED's (`Messier 087`, z
 0.004282963, 118 distances). NED gives no other base's identifier, so nothing leads out of it.
 
+## Example
+
+```php
+<?php
+
+require __DIR__.'/vendor/autoload.php';
+
+use Omnilab\Ned\NedSourceFactory;
+use Symfony\Component\HttpClient\HttpClient;
+
+$ned = (new NedSourceFactory(HttpClient::create(['timeout' => 90])))->create(['mailto' => 'you@example.org']);
+
+$m31 = $ned->entity('M31');
+echo $m31->label, ' (', $m31->kind, '): ', $m31->value('coordinates'), ', z = ', $m31->property('redshift'), ' (', $m31->value('redshift_quality'), '), ', $m31->value('distance_measurements'), " distances in NED\n";
+
+$near = $ned->cone(197.448776, -23.383831, 0.1, 5, 'G');   // NGC 4993, within 0.1 degree
+foreach ($near as $galaxy) {
+    echo '  ', $galaxy->label, ' at ', $galaxy->property('separation'), "\n";
+}
+var_dump($ned->entity('zzqqxx no such object'));
+```
+
+```
+Messier 031 (galaxy): 00 42 44.3503 +41 16 08.634, z = -0.000991 ± 0.000003 (SUN), 407 distances in NED
+  NGC 4993 at 0.4748427944 arcsec
+  WISEA J130929.07-232435.2 at 273.0242233892 arcsec
+NULL
+```
+
+(as answered on 2026-10-27: four calls; the HTTP client's timeout raised for the cone)
+
+```yaml
+# config/packages/omnilab.yaml
+omnilab:
+    sources:
+        ned: { factory: ned, options: { mailto: '%env(OMNILAB_MAILTO)%' } }
+```
+
+`cone()` is a method of `NedSource`, not of the interface the bundle injects: check the instance
+before calling it.
+
+## Errors
+
+TAP's calls go through `HttpSource` (a 404, 410 or 204 is null; a 429 a `RateLimitedException`; a
+5xx, a time-out or a host that does not answer an `UnavailableException`; any other 4xx a
+`ProviderException` with what the service said, TAP's VOTable error read). ObjectLookup's POST is
+the source's own and mapped alike: a 5xx an `UnavailableException`, a 429 a `RateLimitedException`
+(its `retryAfter` not read), another 4xx a `ProviderException` with the start of its body, an
+answer that is not JSON a `ProviderException`. A `ResultCode` other than 3 (found) is null.
+
+Before any call: another base's identifier (`NotSupportedException`); in `cone()`, a position
+outside the sky, a radius not above 0 or beyond 10°, a type code that is not one to six letters (`*` and `_` allowed)
+(`\InvalidArgumentException`).
+
 ## Verified, and not
 
 Against the real service on 2026-10-15: M31 (`Messier 031`, two calls, 2.8 s), 3C 273 (quasar),
@@ -90,5 +192,20 @@ NGC 4993, Abell 1689 (cluster of galaxies), `simbad:M 87` (`Messier 087`), an un
 query by `prefname` (past 60 s), by `LIKE` (past 40 s), with `OFFSET` (400). The fixtures in
 `Tests/Fixtures/` are its answers.
 
+Again on 2026-10-27: M31 (407 distances), the galaxies within 0.1° of NGC 4993, an unknown name
+(the example above).
+
 Not verified: a 429 or a 5xx from NED (none met); ObjectLookup's other result codes (an
 ambiguous name was not met: NED resolved every name tried to one object); a mirror (`base_uri`).
+
+## Responsibility
+
+This package is an independent, unofficial client: it is not affiliated with, endorsed by or
+sponsored by NASA, IPAC or Caltech. NED asks that work using it acknowledge it ("This research has
+made use of the NASA/IPAC Extragalactic Database (NED), which is funded by the National
+Aeronautics and Space Administration and operated by the California Institute of Technology"),
+each value cited from its reference, as the README's
+[Terms of use](https://github.com/glitchr-omnisense/omnilab-ned#terms-of-use) says. Whoever runs
+the package is responsible for complying with them and for any use made of what it returns: see
+the README's [Responsibility](https://github.com/glitchr-omnisense/omnilab-ned#responsibility)
+section.
