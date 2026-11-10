@@ -195,6 +195,7 @@ final class NedSource extends HttpSource
      */
     private function postForm(string $path, array $form): array
     {
+        $this->governed('POST', rtrim($this->baseUri, '/').'/'.$path);
         try {
             $response = $this->http->request('POST', rtrim($this->baseUri, '/').'/'.$path, ['headers' => ['Accept' => 'application/json'] + $this->headers, 'body' => $form]);
             $status = $response->getStatusCode();

@@ -42,6 +42,17 @@ Administration and operated by the California Institute of Technology." Each val
 reference (bibcode) NED took it from, to be cited with it. No rate is published; NED's TAP
 answers in 1 to 40 s, a large cone the slowest.
 
+## Usage policy
+
+Declared as data in [`policy.json`](policy.json) (read at https://ned.ipac.caltech.edu/Documents/Guides/Interface/TAP on 2026-11-10), and honoured on every request by the
+core: a limit reached waits when its window ends within `max_wait` seconds, else the request is not
+sent ([Usage policies](https://github.com/glitchr-omnisense/omnilab/blob/1.x/docs/policies.md)).
+
+- Limits: not published (unknown).
+- Licence: not stated; commercial use: unknown.
+- Credit: not required: This research has made use of the NASA/IPAC Extragalactic Database, which is funded by the National Aeronautics and Space Administration and operated by the California Institute of Technology. (https://ned.ipac.caltech.edu/).
+- Needs: nothing.
+
 ## Responsibility
 
 This package is an independent, unofficial client: it is not affiliated with, endorsed by or

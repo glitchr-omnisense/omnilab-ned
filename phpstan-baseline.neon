@@ -1,0 +1,217 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 1
+			path: NedSource.php
+
+		-
+			message: '#^Cannot access offset ''Dec'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 2
+			path: NedSource.php
+
+		-
+			message: '#^Cannot access offset ''Name'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: NedSource.php
+
+		-
+			message: '#^Cannot access offset ''QualityFlag'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: NedSource.php
+
+		-
+			message: '#^Cannot access offset ''RA'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 2
+			path: NedSource.php
+
+		-
+			message: '#^Cannot access offset ''RefCode'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 2
+			path: NedSource.php
+
+		-
+			message: '#^Cannot access offset ''UncSemiMajor'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: NedSource.php
+
+		-
+			message: '#^Cannot access offset ''Uncertainty'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: NedSource.php
+
+		-
+			message: '#^Cannot access offset ''Value'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 2
+			path: NedSource.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 1
+			path: NedSource.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 3
+			path: NedSource.php
+
+		-
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, Closure\(array\)\: string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: NedSource.php
+
+		-
+			message: '#^Parameter \#1 \$preferred of method Omnilab\\Ned\\NedSource\:\:toEntity\(\) expects array\<string, mixed\>\|null, array\<mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: NedSource.php
+
+		-
+			message: '#^Parameter \#1 \$text of static method Omnilab\\Source\\HttpSource\:\:text\(\) expects string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 8
+			path: NedSource.php
+
+		-
+			message: '#^Parameter \#2 \$array of function array_map expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: NedSource.php
+
+		-
+			message: '#^Parameter \#2 \$form of method Omnilab\\Ned\\NedSource\:\:postForm\(\) expects array\<string, string\>, array\<string, string\|false\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: NedSource.php
+
+		-
+			message: '#^Parameter \#3 \$value of class Omnilab\\Model\\Property constructor expects bool\|float\|int\|Omnilab\\Model\\Quantity\|string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: NedSource.php
+
+		-
+			message: '#^Cannot cast mixed to float\.$#'
+			identifier: cast.double
+			count: 1
+			path: NedSourceFactory.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: NedSourceFactory.php
+
+		-
+			message: '#^Cannot access offset ''name'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: Tests/NedSourceTest.php
+
+		-
+			message: '#^Cannot access offset ''v'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: Tests/NedSourceTest.php
+
+		-
+			message: '#^Cannot access property \$domain on Omnilab\\Model\\Entity\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: Tests/NedSourceTest.php
+
+		-
+			message: '#^Cannot access property \$id on Omnilab\\Model\\Entity\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: Tests/NedSourceTest.php
+
+		-
+			message: '#^Cannot access property \$kind on Omnilab\\Model\\Entity\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: Tests/NedSourceTest.php
+
+		-
+			message: '#^Cannot access property \$label on Omnilab\\Model\\Entity\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: Tests/NedSourceTest.php
+
+		-
+			message: '#^Cannot access property \$source on Omnilab\\Model\\Property\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: Tests/NedSourceTest.php
+
+		-
+			message: '#^Cannot access property \$synonyms on Omnilab\\Model\\Entity\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: Tests/NedSourceTest.php
+
+		-
+			message: '#^Cannot access property \$url on Omnilab\\Model\\Entity\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: Tests/NedSourceTest.php
+
+		-
+			message: '#^Cannot call method number\(\) on Omnilab\\Model\\Property\|null\.$#'
+			identifier: method.nonObject
+			count: 3
+			path: Tests/NedSourceTest.php
+
+		-
+			message: '#^Cannot call method property\(\) on Omnilab\\Model\\Entity\|null\.$#'
+			identifier: method.nonObject
+			count: 5
+			path: Tests/NedSourceTest.php
+
+		-
+			message: '#^Cannot call method unit\(\) on Omnilab\\Model\\Property\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: Tests/NedSourceTest.php
+
+		-
+			message: '#^Cannot call method value\(\) on Omnilab\\Model\\Entity\|null\.$#'
+			identifier: method.nonObject
+			count: 8
+			path: Tests/NedSourceTest.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: Tests/NedSourceTest.php
+
+		-
+			message: '#^Parameter \#1 \$haystack of function str_contains expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 3
+			path: Tests/NedSourceTest.php
+
+		-
+			message: '#^Parameter \#1 \$json of function json_decode expects string, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: Tests/NedSourceTest.php
+
+		-
+			message: '#^Property Omnilab\\Ned\\Tests\\NedSourceTest\:\:\$calls \(list\<array\{string, string\}\>\) does not accept non\-empty\-list\<array\{string, mixed\}\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: Tests/NedSourceTest.php

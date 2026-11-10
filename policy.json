@@ -1,0 +1,40 @@
+{
+    "$schema": "https://github.com/glitchr-omnisense/contracts/blob/1.x/resources/usage-policy.schema.json",
+    "provider": "ned",
+    "rateLimits": null,
+    "concurrency": null,
+    "rights": {
+        "commercial": "unknown",
+        "openSourceRequired": null,
+        "caching": {
+            "permission": "unknown",
+            "maxTtl": null
+        },
+        "storage": "unknown",
+        "redistribution": "unknown",
+        "attribution": {
+            "required": false,
+            "text": "This research has made use of the NASA/IPAC Extragalactic Database, which is funded by the National Aeronautics and Space Administration and operated by the California Institute of Technology.",
+            "url": "https://ned.ipac.caltech.edu/",
+            "where": [
+                "source"
+            ]
+        },
+        "licence": null
+    },
+    "requirements": {
+        "key": false,
+        "userAgent": {
+            "required": false,
+            "pattern": null
+        }
+    },
+    "provenance": {
+        "terms": "https://ned.ipac.caltech.edu/Documents/Overview/Acknowledgments",
+        "policy": "https://ned.ipac.caltech.edu/Documents/Guides/Interface/TAP",
+        "verifiedAt": "2026-11-10",
+        "declaredBy": "maintainer",
+        "contact": null,
+        "notes": "Read 2026-11-10: the TAP guide states no rate limit, only a default execution limit of 240 s (proxy timeout 300 s) and a default of 1,000,000 rows; it says the legacy API is deprecated in favour of the new NED API. The acknowledgement is a request (\"please include\"); cite each value's reference (bibcode). No terms of use or data licence found; the site carries \"Copyright 2026, California Institute of Technology\". Contact: the site's \"Contact Us\" form to the NED Team."
+    }
+}
