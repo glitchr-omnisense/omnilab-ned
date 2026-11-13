@@ -33,6 +33,34 @@ from SIMBAD (or from Wikidata through SIMBAD) into NED.
 
 See [docs/](docs/index.md) for what is read, how it maps, and what NED does not give here.
 
+## Install and a first call
+
+```sh
+composer require omnilab/ned
+```
+
+A real call, with no account and no key: the Andromeda galaxy in NED. `mailto` is your address, sent
+in the User-Agent so that the service can reach you before it blocks a caller; the source keeps to
+the limits its [`policy.json`](policy.json) declares.
+
+```php
+<?php
+
+require __DIR__.'/vendor/autoload.php';
+
+use Omnilab\Ned\NedSourceFactory;
+
+$ned = (new NedSourceFactory())->create(['mailto' => 'you@example.org']);   // your address, in the User-Agent
+$m31 = $ned->entity('M31');
+echo $m31->id, ' (', $m31->kind, '), redshift ', $m31->property('redshift'), "\n";
+```
+
+Its output on 2026-11-13:
+
+```
+ned:Messier 031 (galaxy), redshift -0.000991 ± 0.000003
+```
+
 ## Terms of use
 
 NED is operated by IPAC at the California Institute of Technology under contract with NASA. It
